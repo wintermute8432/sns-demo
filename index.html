@@ -1,110 +1,210 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>무한 스크롤 게시물</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        body {
-            background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 600px;
-            margin-top: 20px;
-        }
-
-        .post {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        }
-
-        .post .title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .post .content {
-            font-size: 14px;
-            color: #333;
-        }
-
-        .post .footer {
-            font-size: 12px;
-            color: rgba(0, 0, 0, 0.4);
-            margin-top: 10px;
-        }
-
-        .button {
-            background: black;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: inline-block;
-            text-align: center;
-            cursor: pointer;
-            font-size: 12px;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Layout with Infinite Scroll</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Abhaya+Libre:wght@800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: white;
+    }
+    .frame1 {
+      width: 849px;
+      height: auto;
+      position: relative;
+      background: white;
+      padding-bottom: 200px; /* 무한스크롤을 위한 여백 추가 */
+    }
+    .rectangle4, .rectangle1, .rectangle2, .rectangle3 {
+      position: absolute;
+      background: white;
+      filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+      border-radius: 10px;
+    }
+    .rectangle4 {
+      width: 618px;
+      height: 588px;
+      left: 83px;
+      top: 37px;
+    }
+    .rectangle1 {
+      left: 164px;
+      top: 99px;
+      width: 508px;
+      height: 108px;
+    }
+    .rectangle2 {
+      left: 164px;
+      top: 224px;
+      width: 508px;
+      height: 88px;
+    }
+    .rectangle3 {
+      left: 164px;
+      top: 334px;
+      width: 508px;
+      height: 208px;
+    }
+    .text1, .text2, .text3, .text4, .text5 {
+      position: absolute;
+      color: black;
+      font-size: 12px;
+      font-weight: 500;
+      word-wrap: break-word;
+    }
+    .text1 {
+      left: 225px;
+      top: 238px;
+    }
+    .text2 {
+      left: 225px;
+      top: 257px;
+    }
+    .text3 {
+      left: 183px;
+      top: 117px;
+      font-size: 15px;
+      color: rgba(0, 0, 0, 0.40);
+    }
+    .text4 {
+      left: 225px;
+      top: 286px;
+      font-size: 7px;
+      color: rgba(0, 0, 0, 0.40);
+    }
+    .text5 {
+      left: 183px;
+      top: 362px;
+      font-size: 15px;
+      font-family: 'Abhaya Libre', sans-serif;
+      font-weight: 800;
+    }
+    .button {
+      width: 80px;
+      height: 20px;
+      left: 568px;
+      top: 163px;
+      position: absolute;
+      background: black;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .button .label-text {
+      text-align: center;
+      color: white;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .avatar {
+      width: 35px;
+      height: 35px;
+      left: 183px;
+      top: 235px;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+    }
+    .avatar img {
+      width: 35px;
+      height: 35px;
+    }
+    .loading {
+      text-align: center;
+      font-size: 20px;
+      color: gray;
+      padding: 20px;
+    }
+    .item {
+      margin-bottom: 50px;
+      padding: 10px;
+      background-color: #f7f7f7;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container" id="postContainer">
-        <!-- 게시물 예시 -->
-        <div class="post">
-            <div class="title">PROJECT M</div>
-            <div class="content">국어 인강 듣기 싫다</div>
-            <div class="footer">눌러서 댓글과 공감 확인</div>
-            <div class="button">게시하기</div>
-        </div>
+  <div class="frame1" id="content">
+    <div class="rectangle4"></div>
+    <div class="rectangle1"></div>
+    <div class="rectangle2"></div>
+    <div class="rectangle3"></div>
+    <div class="text1">PROJECT M</div>
+    <div class="text2">국어 인강 듣기 싫다</div>
+    <div class="text3">지금 당신이 하고 있는 것은?</div>
+    <div class="button">
+      <div class="label-text">게시하기</div>
+    </div>
+    <div class="avatar">
+      <img src="https://placehold.co/35x35" alt="3D Avatar"/>
+    </div>
+    <div class="text4">눌러서 댓글과 공감 확인</div>
+    <div class="text5">당신이 호감가지고 있는 사람은?</div>
+    
+    <!-- 무한 스크롤 콘텐츠 -->
+    <div id="items">
+      <!-- 기존 항목들 -->
+      <div class="item">새로운 게시물 1</div>
+      <div class="item">새로운 게시물 2</div>
+      <div class="item">새로운 게시물 3</div>
     </div>
 
-    <script>
-        // 무한 스크롤 기능 추가
-        document.addEventListener("DOMContentLoaded", function() {
-            const container = document.getElementById("postContainer");
+    <!-- 로딩 표시 -->
+    <div class="loading" id="loading">로딩 중...</div>
+  </div>
 
-            function addPost() {
-                const post = document.createElement("div");
-                post.classList.add("post");
-                post.innerHTML = `
-                    <div class="title">PROJECT M</div>
-                    <div class="content">국어 인강 듣기 싫다</div>
-                    <div class="footer">눌러서 댓글과 공감 확인</div>
-                    <div class="button">게시하기</div>
-                `;
-                container.appendChild(post);
-            }
+  <script>
+    const loadingElement = document.getElementById("loading");
+    const itemsContainer = document.getElementById("items");
 
-            window.addEventListener("scroll", function() {
-                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
-                    addPost();
-                }
-            });
+    // IntersectionObserver로 무한 스크롤 구현
+    const observer = new IntersectionObserver((entries, observer) => {
+      const entry = entries[0];
 
-            // 초기 게시물 5개 추가
-            for (let i = 0; i < 5; i++) {
-                addPost();
-            }
-        });
-    </script>
+      if (entry.isIntersecting) {
+        loadMoreItems();
+      }
+    }, {
+      rootMargin: "200px"
+    });
 
+    observer.observe(loadingElement);
+
+    function loadMoreItems() {
+      // 로딩 중 표시
+      loadingElement.textContent = "새로운 게시물을 불러오는 중...";
+
+      // 가상의 데이터를 추가 (여기서는 3개의 새 게시물을 추가)
+      setTimeout(() => {
+        const newItem1 = document.createElement("div");
+        newItem1.classList.add("item");
+        newItem1.textContent = "새로운 게시물 4";
+
+        const newItem2 = document.createElement("div");
+        newItem2.classList.add("item");
+        newItem2.textContent = "새로운 게시물 5";
+
+        const newItem3 = document.createElement("div");
+        newItem3.classList.add("item");
+        newItem3.textContent = "새로운 게시물 6";
+
+        itemsContainer.appendChild(newItem1);
+        itemsContainer.appendChild(newItem2);
+        itemsContainer.appendChild(newItem3);
+
+        loadingElement.textContent = "로딩 중...";  // 로딩 상태로 초기화
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
