@@ -1,71 +1,110 @@
-<div data-layer="Frame 1" className="Frame1" style={{width: 849, height: 597, position: 'relative', background: 'white'}}>
-  <div data-svg-wrapper data-layer="Rectangle 1" className="Rectangle1" style={{left: 164, top: 99, position: 'absolute'}}>
-  <svg width="508" height="108" viewBox="0 0 508 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g filter="url(#filter0_d_1_2)">
-  <path d="M4 10C4 4.47716 8.47715 0 14 0H494C499.523 0 504 4.47715 504 10V90C504 95.5228 499.523 100 494 100H14C8.47714 100 4 95.5229 4 90V10Z" fill="white"/>
-  </g>
-  <defs>
-  <filter id="filter0_d_1_2" x="0" y="0" width="508" height="108" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-  <feOffset dy="4"/>
-  <feGaussianBlur stdDeviation="2"/>
-  <feComposite in2="hardAlpha" operator="out"/>
-  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_2"/>
-  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_2" result="shape"/>
-  </filter>
-  </defs>
-  </svg>
-  </div>
-  <div data-svg-wrapper data-layer="Rectangle 2" className="Rectangle2" style={{left: 164, top: 224, position: 'absolute'}}>
-  <svg width="508" height="88" viewBox="0 0 508 88" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g filter="url(#filter0_d_1_5)">
-  <path d="M4 10C4 4.47715 8.47715 0 14 0H494C499.523 0 504 4.47715 504 10V70C504 75.5229 499.523 80 494 80H14C8.47714 80 4 75.5229 4 70V10Z" fill="white"/>
-  </g>
-  <defs>
-  <filter id="filter0_d_1_5" x="0" y="0" width="508" height="88" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-  <feOffset dy="4"/>
-  <feGaussianBlur stdDeviation="2"/>
-  <feComposite in2="hardAlpha" operator="out"/>
-  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_5"/>
-  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_5" result="shape"/>
-  </filter>
-  </defs>
-  </svg>
-  </div>
-  <div data-layer="PROJECT M" className="ProjectM" style={{left: 225, top: 238, position: 'absolute', color: 'black', fontSize: 12, fontFamily: 'Roboto', fontWeight: '500', wordWrap: 'break-word'}}>PROJECT M</div>
-  <div data-layer="국어 인강 듣기 싫다" style={{left: 225, top: 257, position: 'absolute', color: 'black', fontSize: 12, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>국어 인강 듣기 싫다</div>
-  <div data-layer="지금 당신이 하고 있는 것은?" style={{left: 183, top: 117, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 15, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>지금 당신이 하고 있는 것은?</div>
-  <div data-layer="Button" className="Button" style={{width: 80, height: 20, left: 568, top: 163, position: 'absolute', background: 'black', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 100, overflow: 'hidden', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-    <div data-layer="state-layer" className="StateLayer" style={{alignSelf: 'stretch', flex: '1 1 0', paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10, justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-      <div data-layer="label-text" className="LabelText" style={{textAlign: 'center', color: 'white', fontSize: 11, fontFamily: 'Roboto', fontWeight: '500', lineHeight: 16, letterSpacing: 0.50, wordWrap: 'break-word'}}>게시하기</div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무한 스크롤 게시물</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .post {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .post .title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .post .content {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .post .footer {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.4);
+            margin-top: 10px;
+        }
+
+        .button {
+            background: black;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="postContainer">
+        <!-- 게시물 예시 -->
+        <div class="post">
+            <div class="title">PROJECT M</div>
+            <div class="content">국어 인강 듣기 싫다</div>
+            <div class="footer">눌러서 댓글과 공감 확인</div>
+            <div class="button">게시하기</div>
+        </div>
     </div>
-  </div>
-  <div data-layer="3D Avatars / 10" className="DAvatars10" style={{width: 35, height: 35, left: 183, top: 235, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-    <img data-layer="Avatars / 3d_avatar_10" className="Avatars3dAvatar10" style={{width: 35, height: 35}} src="https://placehold.co/35x35" />
-  </div>
-  <div data-layer="눌러서 댓글과 공감 확인" style={{left: 225, top: 286, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 7, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>눌러서 댓글과 공감 확인</div>
-  <div data-svg-wrapper data-layer="Rectangle 3" className="Rectangle3" style={{left: 164, top: 334, position: 'absolute'}}>
-  <svg width="508" height="208" viewBox="0 0 508 208" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g filter="url(#filter0_d_2_27)">
-  <path d="M4 10C4 4.47716 8.47715 0 14 0H494C499.523 0 504 4.47715 504 10V190C504 195.523 499.523 200 494 200H14C8.47714 200 4 195.523 4 190V10Z" fill="white"/>
-  </g>
-  <defs>
-  <filter id="filter0_d_2_27" x="0" y="0" width="508" height="208" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-  <feOffset dy="4"/>
-  <feGaussianBlur stdDeviation="2"/>
-  <feComposite in2="hardAlpha" operator="out"/>
-  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_27"/>
-  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_27" result="shape"/>
-  </filter>
-  </defs>
-  </svg>
-  </div>
-</div>
+
+    <script>
+        // 무한 스크롤 기능 추가
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById("postContainer");
+
+            function addPost() {
+                const post = document.createElement("div");
+                post.classList.add("post");
+                post.innerHTML = `
+                    <div class="title">PROJECT M</div>
+                    <div class="content">국어 인강 듣기 싫다</div>
+                    <div class="footer">눌러서 댓글과 공감 확인</div>
+                    <div class="button">게시하기</div>
+                `;
+                container.appendChild(post);
+            }
+
+            window.addEventListener("scroll", function() {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+                    addPost();
+                }
+            });
+
+            // 초기 게시물 5개 추가
+            for (let i = 0; i < 5; i++) {
+                addPost();
+            }
+        });
+    </script>
+
+</body>
+</html>
